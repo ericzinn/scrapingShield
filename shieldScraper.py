@@ -4,7 +4,6 @@ import numpy as np
 import csv
 import argparse
 from pathlib import Path
-from scipy.stats import zscore
 
 # For interfacing with the website
 import requests
@@ -24,7 +23,7 @@ def combineTablesByCondition(listOfDataframes, condition):
     aggregateDf = pd.DataFrame()
 
     for tmpDf in listOfDataframes:
-        aggregateDf[tmpDf.columns[0]] = tmpDf[tmpDf[tmpDf.columns[0]] == condition].iloc[0]
+        aggregateDf[tmpDf.columns[0]] = tmpDf[tmpDf[tmpDf.columns[0]] == condition].squeeze()
 
     return aggregateDf.T.drop(aggregateDf.T.columns[0], axis = 1).fillna(0)
 
